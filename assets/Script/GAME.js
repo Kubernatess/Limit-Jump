@@ -1,6 +1,7 @@
 //GAME.js
 var HeroPlayer = require("HeroPlayer");
 var MoveBg = require('BgMove');
+var bgmu = require('Audio');
 
 
 cc.Class({
@@ -51,6 +52,33 @@ cc.Class({
 
         },
 
+        // 背景音乐资源
+        bgmusic: {
+
+            default: null,
+
+            type: cc.Node
+
+        },
+
+        // 游戏音乐资源
+        gameAudio: {
+
+            default: null,
+
+            url: cc.AudioClip
+
+        },
+
+        // 游戏结束音乐资源
+        gameOverAudio: {
+
+            default: null,
+
+            url: cc.AudioClip
+
+        },
+
     },
 
     //事件监听
@@ -63,6 +91,8 @@ cc.Class({
         var bg1 = self.bgsprite1.getComponent(MoveBg);//绑定背景控件
 
         var bg2 = self.bgsprite2.getComponent(MoveBg);//绑定背景控件
+
+        var mus = self.bgmusic.getComponent(bgmu);
 
         cc.eventManager.addListener({
 
@@ -83,6 +113,8 @@ cc.Class({
                 var locationInNode = target.convertToNodeSpace(touch.getLocation());
 
                 cc.log("当前点击坐标"+locationInNode);
+
+                mus.setCp(touch.getLocation());
       
                 hero.node.runAction(hero.setJumpUpAction());//精灵移动
 
@@ -104,6 +136,8 @@ cc.Class({
                     var height = self.player.y;//背景需要移动的高度
                     
                     self.player.y = height/2;//设置精灵的高度位置
+
+                    self.gainScore();  //积分更新
 
                     bg1.node.runAction(bg1.setMoveAction(height));//背景实现向下滚动
                     
@@ -154,6 +188,18 @@ cc.Class({
 
     },
 
+    //积分更新
+    gainScore: function () {
+
+        this.score += 1;
+
+        // 更新 scoreDisplay Label 的文字
+        this.scoreDisplay.string =  this.score.toString();
+
+        cc.sys.localStorage.setItem("ScoreDis" ,this.scoreDisplay.string);//本地存储
+
+    },
+
 
     onLoad: function () {
     
@@ -171,19 +217,27 @@ cc.Class({
     //实现update方法
     update: function (dt) {
 
-        this.setBgMoveCreate();//检测背景
+        this.setBgMoveCreate(); //检测背景
 
         //gameOver判断 玩家坠落到屏幕底部游戏结束
-        if(this.player.y <= -cc.view.getVisibleSize().height/2){
-
+        if (this.player.getPositionY() <= -cc.view.getVisibleSize().height / 2) {
             this.unscheduleAllCallbacks();
+            cc.audioEngine.playEffect(this.gameOverAudio, false); //游戏结束音乐
 
-            if(this.isMoving)
-            {
+            if (this.isMoving) {
                 this.gameOver();
-        
                 this.isMoving = false;
             }
+
+        }
+        //判断音效
+        if (this.bgmusic.getComponent(bgmu).isOpen) {
+            cc.log("恢复现在正在播放的所有音效");
+            cc.audioEngine.resumeAllEffects() //恢复播放所有之前暂停的所有音效
+
+        } else {
+            cc.log("暂停现在正在播放的所有音效");
+            cc.audioEngine.pauseAllEffects() //恢复播放所有之前暂停的所有音效
 
         }
     },

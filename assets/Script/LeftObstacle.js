@@ -8,12 +8,22 @@ cc.Class({
 
             times: 0,//控制时间
 
+            // 碰撞音效资源
+            pengAudio: {
+
+                default: null,
+
+                url: cc.AudioClip
+
+            },
+
         },
 
         onLoad: function () {
 
             this.moveRight();
 
+            cc.audioEngine.setEffectsVolume ( 0.2 );//设置音效声音大小
         },
 
         //左右移动

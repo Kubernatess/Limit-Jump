@@ -41,9 +41,9 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.39214061737060546,
-      "y": 0.39214061737060546,
-      "z": 0.39214061737060546
+      "x": 0.39234375,
+      "y": 0.39234375,
+      "z": 0.39234375
     },
     "_quat": {
       "__type__": "cc.Quat",
@@ -92,10 +92,10 @@
     "_level": 1,
     "_components": [
       {
-        "__id__": 36
+        "__id__": 37
       },
       {
-        "__id__": 37
+        "__id__": 38
       }
     ],
     "_prefab": null,
@@ -1205,6 +1205,9 @@
     "_components": [
       {
         "__id__": 35
+      },
+      {
+        "__id__": 36
       }
     ],
     "_prefab": null,
@@ -1281,6 +1284,20 @@
     "_id": "46WKFhLbRAvacX6i6vq4tP"
   },
   {
+    "__type__": "c5cd83GbltDrbZRsSJ/msZf",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 34
+    },
+    "_enabled": true,
+    "isOpen": true,
+    "gameAudio": {
+      "__uuid__": "94e4b399-ca4f-4361-9788-71b6d4a54942"
+    },
+    "_id": "44B3PwbSlMNor0xAMl37cA"
+  },
+  {
     "__type__": "cc.Canvas",
     "_name": "",
     "_objFlags": 0,
@@ -1316,6 +1333,15 @@
     },
     "scoreDisplay": {
       "__id__": 33
+    },
+    "bgmusic": {
+      "__id__": 34
+    },
+    "gameAudio": {
+      "__uuid__": "94e4b399-ca4f-4361-9788-71b6d4a54942"
+    },
+    "gameOverAudio": {
+      "__uuid__": "3efc3b5e-6b1d-4e3b-8e6e-d9e2e17cfd45"
     },
     "_id": "deRwe+xFVHv43YlYr7NlOE"
   }
